@@ -167,6 +167,9 @@ async def save_oper(message: types.Message, state: FSMContext):
         await message.answer('Дата введена неверно')
         return
     date = datetime.strptime(date, '%Y-%m-%d')
+    if date >= datetime.now():
+        await message.answer('Дата не может быть больше сегодняшней')
+        return
     data = await state.get_data()
     amount = data.get('amount')
     operation = data.get('operation')
